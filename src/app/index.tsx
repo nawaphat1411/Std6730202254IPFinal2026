@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
 const API_BASE_URL = 'http://119.59.102.161:3025/api';
@@ -52,7 +52,7 @@ export default function App() {
 
   const handleLogin = async () => {
     if (!username.trim() || !password.trim()) {
-      if (Platform.OS === 'web') window.alert('กรุณากรอก Username และ Password');
+      showAlert('Error', 'Please enter Username and Password');
       return;
     }
 
@@ -68,10 +68,10 @@ export default function App() {
       if (response.ok && data.success) {
         setIsLoggedIn(true);
       } else {
-        if (Platform.OS === 'web') window.alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+        showAlert('Authentication Failed', 'Invalid username or password');
       }
     } catch (error) {
-      if (Platform.OS === 'web') window.alert('ไม่สามารถเชื่อมต่อ Server ได้');
+      showAlert('Connection Error', 'Cannot connect to backend server');
     } finally {
       setLoginLoading(false);
     }
@@ -96,9 +96,7 @@ export default function App() {
       }
     } catch (error: any) {
       console.error('Fetch Employees Error:', error);
-      if (Platform.OS === 'web') {
-        window.alert(`เกิดข้อผิดพลาดในการดึงข้อมูล: ${error.message}`);
-      }
+      showAlert('Fetch Error', `Failed to load employees: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -106,7 +104,7 @@ export default function App() {
 
   const handleAddEmployee = async () => {
     if (!name.trim() || !position.trim() || !salary.trim()) {
-      if (Platform.OS === 'web') window.alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+      showAlert('Validation Error', 'Please complete all employee fields');
       return;
     }
 
@@ -126,7 +124,7 @@ export default function App() {
         setPosition('');
         setSalary('');
         fetchEmployees();
-        if (Platform.OS === 'web') window.alert('✨ เพิ่มพนักงานลงระบบสำเร็จ!');
+        showAlert('Success', '✨ New employee record created in MySQL!');
       }
     } catch (error: any) {
       console.error('Add Employee Error:', error);
@@ -157,12 +155,12 @@ export default function App() {
 
   const handleDeleteEmployee = (id: string | number) => {
     if (Platform.OS === 'web') {
-      const confirmed = window.confirm('⚠️ คุณแน่ใจหรือไม่ว่าต้องการลบพนักงานคนนี้ออกจากระบบ?');
+      const confirmed = window.confirm('⚠️ Are you sure you want to delete this employee record?');
       if (confirmed) executeDelete(id);
     } else {
-      Alert.alert('ยืนยันการลบ', 'คุณแน่ใจหรือไม่ว่าต้องการลบพนักงานคนนี้?', [
-        { text: 'ยกเลิก', style: 'cancel' },
-        { text: 'ลบข้อมูล', style: 'destructive', onPress: () => executeDelete(id) },
+      Alert.alert('Confirm Deletion', 'Are you sure you want to delete this employee?', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: () => executeDelete(id) },
       ]);
     }
   };
@@ -183,26 +181,35 @@ export default function App() {
     }
   };
 
+  const showAlert = (title: string, msg: string) => {
+    if (Platform.OS === 'web') {
+      window.alert(`${title}: ${msg}`);
+    } else {
+      Alert.alert(title, msg);
+    }
+  };
+
   // -------------------------------------------------------------
-  // 🔐 SCREEN 1: DARK LOGIN UI
+  // 🔐 SCREEN 1: ULTRA-DARK LOGIN UI
   // -------------------------------------------------------------
   if (!isLoggedIn) {
     return (
       <SafeAreaView style={styles.loginWrapper}>
+        <View style={styles.loginGlowBg} />
         <View style={styles.loginCard}>
           <View style={styles.logoBadge}>
             <Text style={{ fontSize: 32 }}>⚡</Text>
           </View>
 
-          <Text style={styles.loginTitle}>Nawaphat HR System</Text>
-          <Text style={styles.loginSubTitle}>Sign in to access dark console</Text>
+          <Text style={styles.loginTitle}>HR Executive Console</Text>
+          <Text style={styles.loginSubTitle}>Nawaphat_Niemsri Analytics System</Text>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Username</Text>
+            <Text style={styles.inputLabel}>USERNAME</Text>
             <TextInput
               style={styles.textInput}
               placeholder="e.g. admin"
-              placeholderTextColor="#64748B"
+              placeholderTextColor="#475569"
               value={username}
               onChangeText={setUsername}
               autoCapitalize="none"
@@ -210,11 +217,11 @@ export default function App() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Password</Text>
+            <Text style={styles.inputLabel}>PASSWORD</Text>
             <TextInput
               style={styles.textInput}
               placeholder="••••••••"
-              placeholderTextColor="#64748B"
+              placeholderTextColor="#475569"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -229,7 +236,7 @@ export default function App() {
             {loginLoading ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text style={styles.primaryBtnText}>Authenticate</Text>
+              <Text style={styles.primaryBtnText}>AUTHENTICATE SYSTEM</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -238,7 +245,7 @@ export default function App() {
   }
 
   // -------------------------------------------------------------
-  // 📊 SCREEN 2: DARK DASHBOARD UI
+  // 📊 SCREEN 2: CYBER DARK DASHBOARD UI
   // -------------------------------------------------------------
   return (
     <SafeAreaView style={styles.container}>
@@ -246,11 +253,11 @@ export default function App() {
       <View style={styles.navbar}>
         <View style={styles.navBrand}>
           <View style={styles.navLogo}>
-            <Text style={{ fontSize: 18, color: '#FFF' }}>💎</Text>
+            <Text style={{ fontSize: 20 }}>💎</Text>
           </View>
           <View>
             <Text style={styles.navTitle}>Nawaphat_Niemsri</Text>
-            <Text style={styles.navSubTitle}>HR & Salary Analytics Console</Text>
+            <Text style={styles.navSubTitle}>HR Management & K-Means Analytics</Text>
           </View>
         </View>
 
@@ -263,28 +270,31 @@ export default function App() {
         {/* Section 1: Add Employee Form */}
         <View style={styles.sectionCard}>
           <View style={styles.cardHeader}>
-            <Text style={styles.cardHeaderTitle}>➕ Add New Employee</Text>
-            <Text style={styles.cardHeaderSub}>Create employee entry in MySQL database</Text>
+            <View style={styles.cardHeaderTitleRow}>
+              <Text style={{ fontSize: 18, marginRight: 8 }}>✨</Text>
+              <Text style={styles.cardHeaderTitle}>Add Personnel Record</Text>
+            </View>
+            <Text style={styles.cardHeaderSub}>Create real-time entries directly into MySQL Database</Text>
           </View>
 
           <View style={styles.formRow}>
             <View style={[styles.inputGroup, { flex: 1, marginRight: 8 }]}>
-              <Text style={styles.inputLabel}>Full Name</Text>
+              <Text style={styles.inputLabel}>FULL NAME</Text>
               <TextInput
                 style={styles.textInput}
                 placeholder="John Doe"
-                placeholderTextColor="#64748B"
+                placeholderTextColor="#475569"
                 value={name}
                 onChangeText={setName}
               />
             </View>
 
             <View style={[styles.inputGroup, { flex: 1, marginLeft: 8 }]}>
-              <Text style={styles.inputLabel}>Position</Text>
+              <Text style={styles.inputLabel}>POSITION</Text>
               <TextInput
                 style={styles.textInput}
                 placeholder="Software Engineer"
-                placeholderTextColor="#64748B"
+                placeholderTextColor="#475569"
                 value={position}
                 onChangeText={setPosition}
               />
@@ -292,11 +302,11 @@ export default function App() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Salary (THB)</Text>
+            <Text style={styles.inputLabel}>MONTHLY SALARY (THB)</Text>
             <TextInput
               style={styles.textInput}
               placeholder="45000"
-              placeholderTextColor="#64748B"
+              placeholderTextColor="#475569"
               value={salary}
               onChangeText={setSalary}
               keyboardType="numeric"
@@ -304,43 +314,54 @@ export default function App() {
           </View>
 
           <TouchableOpacity style={styles.primaryBtn} onPress={handleAddEmployee}>
-            <Text style={styles.primaryBtnText}>+ Save Employee Record</Text>
+            <Text style={styles.primaryBtnText}>+ SAVE EMPLOYEE TO DATABASE</Text>
           </TouchableOpacity>
         </View>
 
         {/* Section 2: Salary Analytics (K-Means) */}
         <View style={styles.sectionCard}>
           <View style={styles.cardHeader}>
-            <Text style={styles.cardHeaderTitle}>🧮 Salary Structure Analytics</Text>
-            <Text style={styles.cardHeaderSub}>1D K-Means Clustering Algorithm Analysis</Text>
+            <View style={styles.cardHeaderTitleRow}>
+              <Text style={{ fontSize: 18, marginRight: 8 }}>🚀</Text>
+              <Text style={styles.cardHeaderTitle}>Salary Structure Analytics</Text>
+            </View>
+            <Text style={styles.cardHeaderSub}>Automated 1D K-Means Clustering Tiering Algorithm</Text>
           </View>
 
           <TouchableOpacity style={styles.analyticsBtn} onPress={handleAnalyzeSalary}>
-            <Text style={styles.analyticsBtnText}>⚡ Run K-Means Analysis</Text>
+            <Text style={styles.analyticsBtnText}>⚡ RUN K-MEANS CLUSTERING</Text>
           </TouchableOpacity>
 
           {loadingAnalytics && (
             <View style={styles.loaderBox}>
-              <ActivityIndicator size="large" color="#8B5CF6" />
-              <Text style={styles.loaderText}>Processing clustering algorithms...</Text>
+              <ActivityIndicator size="large" color="#6366F1" />
+              <Text style={styles.loaderText}>Computing salary centroids and variance...</Text>
             </View>
           )}
 
           {clusters.length > 0 && (
             <View style={styles.clusterGrid}>
-              {clusters.map((tier, idx) => (
-                <View key={idx} style={[styles.clusterBox, { borderLeftColor: getTierColor(idx) }]}>
-                  <View style={styles.clusterHeader}>
-                    <Text style={[styles.clusterTierName, { color: getTierColor(idx) }]}>{tier.group}</Text>
-                    <View style={styles.badgeCount}>
-                      <Text style={styles.badgeCountText}>{tier.count} Staffs</Text>
+              {clusters.map((tier, idx) => {
+                const tierColor = getTierColor(idx);
+                return (
+                  <View key={idx} style={[styles.clusterBox, { borderColor: tierColor + '40' }]}>
+                    <View style={[styles.clusterGlowBar, { backgroundColor: tierColor }]} />
+                    <View style={styles.clusterContent}>
+                      <View style={styles.clusterHeader}>
+                        <Text style={[styles.clusterTierName, { color: tierColor }]}>{tier.group}</Text>
+                        <View style={[styles.badgeCount, { backgroundColor: tierColor + '20' }]}>
+                          <Text style={[styles.badgeCountText, { color: tierColor }]}>
+                            {tier.count} Staffs
+                          </Text>
+                        </View>
+                      </View>
+
+                      <Text style={styles.clusterCentroidLabel}>Centroid Average Salary</Text>
+                      <Text style={styles.clusterCentroidValue}>฿{tier.centroid.toLocaleString()}</Text>
                     </View>
                   </View>
-
-                  <Text style={styles.clusterCentroidLabel}>Centroid / Avg Base Salary</Text>
-                  <Text style={styles.clusterCentroidValue}>฿{tier.centroid.toLocaleString()}</Text>
-                </View>
-              ))}
+                );
+              })}
             </View>
           )}
         </View>
@@ -349,18 +370,19 @@ export default function App() {
         <View style={styles.listHeaderRow}>
           <Text style={styles.sectionTitle}>Employee Directory</Text>
           <View style={styles.totalBadge}>
-            <Text style={styles.totalBadgeText}>{employees.length} Records</Text>
+            <Text style={styles.totalBadgeText}>{employees.length} Records Active</Text>
           </View>
         </View>
 
         {loading ? (
           <View style={styles.loaderBox}>
-            <ActivityIndicator size="large" color="#8B5CF6" />
+            <ActivityIndicator size="large" color="#6366F1" />
           </View>
         ) : employees.length === 0 ? (
           <View style={styles.emptyCard}>
-            <Text style={{ fontSize: 36, marginBottom: 8 }}>👥</Text>
-            <Text style={styles.emptyText}>No records found in MySQL database</Text>
+            <Text style={{ fontSize: 40, marginBottom: 12 }}>📁</Text>
+            <Text style={styles.emptyTitle}>No Employee Records Found</Text>
+            <Text style={styles.emptyText}>Add your first employee entry using the form above.</Text>
           </View>
         ) : (
           employees.map((emp) => {
@@ -414,45 +436,61 @@ function getTierColor(index: number) {
 }
 
 // -------------------------------------------------------------
-// 🎨 DARK THEME STYLESHEET
+// 🎨 ULTRA-DARK CYBER THEME STYLESHEET
 // -------------------------------------------------------------
 const styles = StyleSheet.create({
   loginWrapper: {
     flex: 1,
-    backgroundColor: '#090D16',
+    backgroundColor: '#050811',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
   },
+  loginGlowBg: {
+    position: 'absolute',
+    width: 250,
+    height: 250,
+    borderRadius: 125,
+    backgroundColor: '#6366F1',
+    opacity: 0.15,
+    top: '30%',
+  },
   loginCard: {
     width: '100%',
     maxWidth: 400,
-    backgroundColor: '#1E293B',
+    backgroundColor: '#0D1527',
     borderRadius: 24,
     padding: 32,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#1E293B',
+    ...Platform.select({
+      web: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)' },
+      default: { elevation: 8 },
+    }),
   },
   logoBadge: {
     width: 64,
     height: 64,
     borderRadius: 20,
-    backgroundColor: '#312E81',
+    backgroundColor: '#1E1B4B',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#3730A3',
   },
   loginTitle: {
     fontSize: 22,
-    fontWeight: '800',
+    fontWeight: '900',
     color: '#F8FAFC',
     textAlign: 'center',
-    marginBottom: 6,
+    marginBottom: 4,
+    letterSpacing: 0.5,
   },
   loginSubTitle: {
     fontSize: 13,
-    color: '#94A3B8',
+    color: '#64748B',
     textAlign: 'center',
     marginBottom: 28,
   },
@@ -460,150 +498,170 @@ const styles = StyleSheet.create({
   // Main Layout
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#050811',
   },
   navbar: {
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    backgroundColor: '#0D1527',
+    paddingHorizontal: 24,
+    paddingVertical: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: '#334155',
+    borderBottomColor: '#1E293B',
   },
   navBrand: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 14,
   },
   navLogo: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: '#334155',
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    backgroundColor: '#1E293B',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#334155',
   },
   navTitle: {
     color: '#F8FAFC',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
+    letterSpacing: 0.3,
   },
   navSubTitle: {
-    color: '#94A3B8',
+    color: '#64748B',
     fontSize: 11,
+    marginTop: 2,
   },
   logoutButton: {
-    backgroundColor: '#991B1B',
-    paddingHorizontal: 14,
+    backgroundColor: '#7F1D1D',
+    paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#991B1B',
   },
   logoutButtonText: {
-    color: '#FECACA',
+    color: '#FCA5A5',
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
 
   mainContent: {
     padding: 20,
-    maxWidth: 800,
+    maxWidth: 850,
     width: '100%',
     alignSelf: 'center',
   },
 
   // Section Cards
   sectionCard: {
-    backgroundColor: '#1E293B',
-    borderRadius: 20,
-    padding: 20,
+    backgroundColor: '#0D1527',
+    borderRadius: 22,
+    padding: 22,
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#1E293B',
   },
   cardHeader: {
-    marginBottom: 16,
+    marginBottom: 18,
+  },
+  cardHeaderTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   cardHeaderTitle: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: 17,
+    fontWeight: '800',
     color: '#F8FAFC',
   },
   cardHeaderSub: {
     fontSize: 12,
-    color: '#94A3B8',
-    marginTop: 2,
+    color: '#64748B',
+    marginTop: 4,
   },
 
-  // Form
+  // Form Controls
   formRow: {
     flexDirection: 'row',
   },
   inputGroup: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
   inputLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#CBD5E1',
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#94A3B8',
     marginBottom: 6,
+    letterSpacing: 0.8,
   },
   textInput: {
-    backgroundColor: '#0F172A',
+    backgroundColor: '#050811',
     borderWidth: 1,
-    borderColor: '#334155',
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    borderColor: '#1E293B',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     fontSize: 14,
     color: '#F8FAFC',
   },
   primaryBtn: {
-    backgroundColor: '#6366F1',
-    paddingVertical: 12,
-    borderRadius: 10,
+    backgroundColor: '#4F46E5',
+    paddingVertical: 14,
+    borderRadius: 12,
     alignItems: 'center',
-    marginTop: 6,
+    marginTop: 4,
   },
   primaryBtnText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '700',
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 0.8,
   },
 
   // Analytics K-Means
   analyticsBtn: {
-    backgroundColor: '#10B981',
-    paddingVertical: 12,
-    borderRadius: 10,
+    backgroundColor: '#059669',
+    paddingVertical: 14,
+    borderRadius: 12,
     alignItems: 'center',
   },
   analyticsBtnText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '700',
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 0.8,
   },
   loaderBox: {
-    paddingVertical: 20,
+    paddingVertical: 24,
     alignItems: 'center',
   },
   loaderText: {
-    marginTop: 8,
+    marginTop: 10,
     fontSize: 13,
-    color: '#94A3B8',
+    color: '#64748B',
   },
   clusterGrid: {
-    marginTop: 16,
-    gap: 10,
+    marginTop: 18,
+    gap: 12,
   },
   clusterBox: {
-    backgroundColor: '#0F172A',
-    borderRadius: 12,
-    padding: 14,
+    backgroundColor: '#050811',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#334155',
-    borderLeftWidth: 5,
+    overflow: 'hidden',
+    flexDirection: 'row',
+  },
+  clusterGlowBar: {
+    width: 6,
+  },
+  clusterContent: {
+    flex: 1,
+    padding: 16,
   },
   clusterHeader: {
     flexDirection: 'row',
@@ -613,26 +671,25 @@ const styles = StyleSheet.create({
   },
   clusterTierName: {
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: '900',
+    letterSpacing: 0.5,
   },
   badgeCount: {
-    backgroundColor: '#334155',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
     borderRadius: 12,
   },
   badgeCountText: {
     fontSize: 11,
-    fontWeight: '600',
-    color: '#CBD5E1',
+    fontWeight: '800',
   },
   clusterCentroidLabel: {
     fontSize: 11,
-    color: '#94A3B8',
+    color: '#64748B',
   },
   clusterCentroidValue: {
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 20,
+    fontWeight: '900',
     color: '#F8FAFC',
     marginTop: 2,
   },
@@ -642,66 +699,71 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
     paddingHorizontal: 4,
   },
   sectionTitle: {
-    fontSize: 17,
-    fontWeight: '800',
+    fontSize: 18,
+    fontWeight: '900',
     color: '#F8FAFC',
+    letterSpacing: 0.3,
   },
   totalBadge: {
-    backgroundColor: '#312E81',
-    paddingHorizontal: 10,
+    backgroundColor: '#1E1B4B',
+    paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#3730A3',
   },
   totalBadgeText: {
     fontSize: 12,
-    fontWeight: '700',
-    color: '#C7D2FE',
+    fontWeight: '800',
+    color: '#A5B4FC',
   },
 
   empCard: {
-    backgroundColor: '#1E293B',
-    borderRadius: 16,
-    padding: 16,
+    backgroundColor: '#0D1527',
+    borderRadius: 18,
+    padding: 18,
     marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
-    gap: 14,
+    borderColor: '#1E293B',
+    gap: 16,
   },
   empAvatar: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: '#312E81',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#1E1B4B',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#3730A3',
   },
   avatarText: {
     fontSize: 18,
-    fontWeight: '800',
-    color: '#A5B4FC',
+    fontWeight: '900',
+    color: '#818CF8',
   },
   empInfo: {
     flex: 1,
   },
   empName: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#F8FAFC',
   },
   empPos: {
     fontSize: 12,
-    color: '#94A3B8',
+    color: '#64748B',
     marginBottom: 4,
   },
   empSalary: {
     fontSize: 14,
-    fontWeight: '800',
+    fontWeight: '900',
     color: '#34D399',
     marginBottom: 6,
   },
@@ -709,16 +771,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 12,
-    gap: 5,
+    gap: 6,
   },
   statusActive: {
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    backgroundColor: 'rgba(16, 185, 129, 0.12)',
   },
   statusLeave: {
-    backgroundColor: 'rgba(245, 158, 11, 0.15)',
+    backgroundColor: 'rgba(245, 158, 11, 0.12)',
   },
   statusDot: {
     width: 6,
@@ -727,45 +789,53 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 
   // Action Buttons
   actionCol: {
-    gap: 6,
+    gap: 8,
   },
   actionBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 10,
     alignItems: 'center',
   },
   toggleBtn: {
-    backgroundColor: '#334155',
+    backgroundColor: '#1E293B',
   },
   toggleBtnText: {
-    color: '#E2E8F0',
-    fontSize: 12,
-    fontWeight: '600',
+    color: '#CBD5E1',
+    fontSize: 11,
+    fontWeight: '700',
   },
   deleteBtn: {
-    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+    backgroundColor: 'rgba(220, 38, 38, 0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(220, 38, 38, 0.3)',
   },
   deleteBtnText: {
     color: '#FCA5A5',
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: 11,
+    fontWeight: '700',
   },
   emptyCard: {
-    backgroundColor: '#1E293B',
-    borderRadius: 16,
-    padding: 32,
+    backgroundColor: '#0D1527',
+    borderRadius: 20,
+    padding: 36,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#1E293B',
+  },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#F8FAFC',
+    marginBottom: 4,
   },
   emptyText: {
-    fontSize: 14,
-    color: '#94A3B8',
+    fontSize: 13,
+    color: '#64748B',
   },
 });

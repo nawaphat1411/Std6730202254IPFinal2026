@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2026 at 03:08 PM
+-- Generation Time: Oct 15, 2026 at 04:48 AM
 -- Server version: 8.0.46-0ubuntu0.24.04.4
 -- PHP Version: 8.3.6
 
@@ -49,7 +49,59 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `name`, `stock`, `category`, `location`, `image`, `status`, `brand`, `sizes`, `productCode`, `orderName`, `storeAvailability`, `lastUpdate`, `price`) VALUES
-(2, 'Secretlab TITAN Evo Black', 6, 'เก้าอี้เกมมิ่ง', 'สวย', 'https://th.bing.com/th/id/OIP.UZTCkJXhxLQiy8Yi1zS5wwHaHa?w=218&h=219&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, 2989.00);
+(2, 'Secretlab TITAN Evo Black', 6, 'เก้าอี้เกมมิ่ง', 'สวย', 'https://th.bing.com/th/id/OIP.UZTCkJXhxLQiy8Yi1zS5wwHaHa?w=218&h=219&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, 2989.00),
+(25, 'เก้าอี้สำนักงาน OFFICEINTREND MARRSHAL สีดำ', 34, 'เก้าอี้ทำงาน', 'เก้าอี้สำนักงานขึ้นโครงพนักพิงด้วยวัสดุคุณภาพดี แข็งแรง ทนทานต่อการใช้งาน', 'data:image/avif;base64,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', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, 2590.00),
+(26, 'GAMING CHAIR (เก้าอี้เกมมิ่ง) COUGAR GAMING ARMOR TITAN (BLACK-ORANGE)', 65, 'เก้าอี้เกมมิ่ง', NULL, 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDIBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/CABEIADIAMgMBIgACEQEDEQH/xAAwAAEBAAMBAQEAAAAAAAAAAAAABwEDBggCBAEBAQEBAAAAAAAAAAAAAAAAAAIDAf/aAAwDAQACEAMQAAAAv+jfJ40/NYfGtocsQuAE8oc3moBTp/8AeO/pLpJXVNcgvNjPOk01UnB02zn+gAAAAAP/xAAsEAABBAECBQMEAgMAAAAAAAABAgMEEQUABhITITFBByBhFCIjUYHBMDKR/9oACAEBAAE/ANTJbMGG9KfWlDTKCtSlGgABrZPqvks3uWNDyiIiIkpa2gptBSW3KtAJuuvaj5I93rnzk4SA6pLj0Fp0OyIqXCjnJSpNpJHawe/ijpOSaLUSIlxtDDyTR5o/ATdD5r9n9+NegmVzeSxuSayOTXMiRlIQyl1XEtBN9ietUO3t9YHIqNrx0SyUNvPqaLnSkgtL/uj/ABqFgpcjHoAjuLI6cbTHGOnyOmvRFuZjtzzoPKeDf035g4jhNggg1fzX86wW7jnclNhN4LKRVQnuTIckhkJQurro4SroR2B7j2es2Jn5LbUJ+E2t1EKVz3kpIHCjgUOI34H96GBGYZkIkKfxuVQFPEhZ5UhPkizV35BrWCnv7eQheOyqozwQtHPbeSFKCiLBFKHgeAemvSdzPrXIdyCZK2ZBLrj77Sk800nhXxKA4jXSx4Hx7FKCUlSiAALJPjW8937Dku7kiPfVzp7jbjbLjx42GnQ2EjldbSOKrNUSDRI16Y7v2ThIcDEupAyUsgOzHIyUpClD7UFRJUQP9bqr6mr0wGRHbEflhkJAQG64a8VXSvZuPbbu4chiS7JaOLiurclwXmA4iV9tJu/0b/78a3BtnBMbSy6I+ChJqE6QiPEQFEhBI4QAOt9tbY2/hn9nYcP4SHZhNFSH4qSoHhF2CD1vW3ttHb+Sy7jElsY6Y6hyPAaYS2iKQmlVXfi6HsO3+L//xAAgEQACAQQBBQAAAAAAAAAAAAABAhEAAxIhEBMwcaGx/9oACAECAQE/ALj4rPj2YoSujy6B1Kmhc6hKxsET9pHynUQe1//EACIRAAIBAwIHAAAAAAAAAAAAAAECEQADEhAhEzBBYXGBkf/aAAgBAwEBPwC0mbR5PwTRhtxtqjFGDCuGtsZE7EGO/T1FXExiDMieV//Z', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, 10900.00),
+(27, 'Furinbox โซฟาปรับระดับ 1 ที่นั่ง รุ่นแคริน', 24, 'เก้าอี้โซฟา', NULL, 'data:image/webp;base64,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', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, 4990.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Nawaphat_Niemsri_employees`
+--
+
+CREATE TABLE `Nawaphat_Niemsri_employees` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Active',
+  `salary` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `Nawaphat_Niemsri_employees`
+--
+
+INSERT INTO `Nawaphat_Niemsri_employees` (`id`, `name`, `position`, `status`, `salary`) VALUES
+(1, 'John Doe', 'Software Engineer', 'Active', 45000.00),
+(2, 'Jane Smith', 'Senior Engineer', 'Active', 85000.00),
+(3, 'Alice Brown', 'Junior Developer', 'Active', 22000.00),
+(4, 'Bob Martin', 'HR Specialist', 'Active', 35000.00),
+(7, 'Nawaphat Niemsri', 'HR', 'On Leave', 50000.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Nawaphat_Niemsri_users`
+--
+
+CREATE TABLE `Nawaphat_Niemsri_users` (
+  `user_id` int NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('admin','user') COLLATE utf8mb4_unicode_ci DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Nawaphat_Niemsri_users`
+--
+
+INSERT INTO `Nawaphat_Niemsri_users` (`user_id`, `username`, `password`, `role`) VALUES
+(1, 'admin', '123', 'admin'),
+(2, 'user1', '1234', 'user'),
+(3, 'bb', '11', 'user'),
+(4, 'aa', '22', 'user'),
+(5, 'rr', '11', 'user');
 
 -- --------------------------------------------------------
 
@@ -101,29 +153,6 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `pric
 (1, 1, 2, 'Secretlab TITAN Evo Black', 2989.00, 1),
 (3, 2, 2, 'Secretlab TITAN Evo Black', 2989.00, 1);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `user_id` int NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('admin','user') COLLATE utf8mb4_unicode_ci DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES
-(1, 'admin', '1234', 'admin'),
-(2, 'user1', '1234', 'user'),
-(3, 'bb', '11', 'user'),
-(4, 'aa', '22', 'user');
-
 --
 -- Indexes for dumped tables
 --
@@ -133,6 +162,19 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `role`) VALUES
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Nawaphat_Niemsri_employees`
+--
+ALTER TABLE `Nawaphat_Niemsri_employees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Nawaphat_Niemsri_users`
+--
+ALTER TABLE `Nawaphat_Niemsri_users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `orders`
@@ -147,13 +189,6 @@ ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -161,7 +196,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `Nawaphat_Niemsri_employees`
+--
+ALTER TABLE `Nawaphat_Niemsri_employees`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `Nawaphat_Niemsri_users`
+--
+ALTER TABLE `Nawaphat_Niemsri_users`
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -174,12 +221,6 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
